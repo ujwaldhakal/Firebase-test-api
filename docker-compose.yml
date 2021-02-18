@@ -1,0 +1,24 @@
+version: "3.4"
+
+services:
+  middev-task:
+    container_name: middev-task
+    #    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - "./:/var/www:cached"
+
+    environment:
+      - PORT=${API_PORT}
+      - API_KEY=${API_KEY}
+      - AUTH_DOMAIN=${AUTH_DOMAIN}
+      - DATABASE_URL=${DATABASE_URL}
+      - BUCKET=${BUCKET}
+
+    command: bash -c "npm run start:dev"
+    ports:
+      - 3000:3000
+
